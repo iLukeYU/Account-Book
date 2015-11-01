@@ -15,9 +15,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // LeanCloud
+        AVOSCloud.setApplicationId(AVOSAppID, clientKey: AVOSAppKey)
+        
+        if isUserLogin() {
+            // if Mr.SU
+            
+            // if anyone else 饭桶页面
+            // goToEaterView()
+        }else{
+            printLog("no user found")
+            // 登录页面
+        }
+        
         return true
     }
+    
+    func isUserLogin() -> Bool{
+        
+        let currentUser =  AVUser.currentUser()
+        
+        if currentUser != nil{
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func goToEaterView() {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let eaterViewController = storyboard.instantiateViewControllerWithIdentifier("EaterView") as! EaterViewController
+        
+        self.window?.rootViewController = eaterViewController
+        self.window?.makeKeyAndVisible()        
+    }
+
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
